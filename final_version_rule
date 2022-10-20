@@ -1,0 +1,3919 @@
+{
+    "type": "decision-tree",
+    "name": "finální verze",
+    "description": "Sample Decision Tree description",
+    "inputSchema": {
+        "productName": {
+            "discountValidity": {
+                "startDate": {},
+                "endDate": {}
+            },
+            "branchCode": {},
+            "productCode": {},
+            "paymentMethod": {},
+            "channelType": {},
+            "productPrice": {},
+            "stockQuantity": {},
+            "salesLastMonth": {}
+        }
+    },
+    "outputSchema": {
+        "productName": {
+            "discountValidity": {
+                "startDate": {},
+                "endDate": {}
+            },
+            "branchCode": {},
+            "productCode": {},
+            "percentageDiscount": {},
+            "absoluteDiscount": {},
+            "materialGift": {},
+            "productPriceFinal": {},
+            "materialGiftCode": {}
+        },
+        "Message": {}
+    },
+    "status": "published",
+    "tags": [],
+    "nodes": [
+        {
+            "id": "2a7b2a16-6a14-c20f-9520-d1869335a184",
+            "operandText": "If",
+            "type": "if",
+            "nodes": [
+                {
+                    "id": "2e84d96f-b255-8c47-de30-d950c8a8dda7",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "between",
+                        "value": [
+                            {
+                                "date": "2022-10-19",
+                                "timezone": "+02:00"
+                            },
+                            {
+                                "date": "2022-10-31",
+                                "timezone": "+02:00"
+                            }
+                        ],
+                        "type": "date"
+                    },
+                    "modelVariablePath": "productName.discountValidity.endDate"
+                },
+                {
+                    "id": "99f91f31-871f-020c-a48a-c5fce31420bf",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "=",
+                        "value": "1",
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.branchCode"
+                },
+                {
+                    "id": "09144e22-00a6-79f6-c16b-be604764b4fc",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "betweenRightOpen",
+                        "value": [
+                            "300",
+                            "500"
+                        ],
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.productPrice"
+                },
+                {
+                    "id": "07bd3d0d-209b-6a00-9e92-77703d18ddcf",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "a32ad85f-7ea4-99b2-60ac-6bcf0228c7ef",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "0,1",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.percentageDiscount"
+                        }
+                    ]
+                },
+                {
+                    "id": "5c05752c-371a-c6f6-060b-96ebc72db89d",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "132f4111-4dcf-5eab-b2cf-f50401f1e33a",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": {
+                                    "functionName": "TIMES_CHAR",
+                                    "parameters": [
+                                        "{productName.productPrice}",
+                                        "0.9"
+                                    ]
+                                },
+                                "type": "function",
+                                "stringValue": "{productName.productPrice} * 0.9"
+                            },
+                            "modelVariablePath": "productName.productPriceFinal"
+                        }
+                    ]
+                },
+                {
+                    "id": "ef429d2f-3b84-b7a6-dc46-a0e378ccfd03",
+                    "nodes": [
+                        {
+                            "id": "ef023d23-a458-8904-3cab-1b13bda081b5",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "da9d9ec9-049e-d252-3825-f17108f455ac",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": "betweenRightOpen",
+                                        "value": [
+                                            "0",
+                                            "100"
+                                        ],
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.stockQuantity"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "0706e91c-4e91-251d-35ef-760f21424f81",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "58e4e3db-5a0c-d4c6-a070-8856a9e501cf",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": "betweenRightOpen",
+                                        "value": [
+                                            "0",
+                                            "100"
+                                        ],
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.salesLastMonth"
+                                }
+                            ]
+                        }
+                    ],
+                    "type": "logic_or",
+                    "operandText": "Or"
+                },
+                {
+                    "id": "424d625a-c15b-fbcd-8152-93ba1c0de847",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "eee5ba40-e211-8c21-e613-390afe40bdcf",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "mouse",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGift"
+                        },
+                        {
+                            "id": "62f03eb4-f412-5aed-9e3c-2fee12972651",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "61434",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGiftCode"
+                        }
+                    ]
+                },
+                {
+                    "id": "1977b01b-10ef-629a-f545-030a2a64ec94",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "39811c43-0f6d-674d-e152-82a78f55af71",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "10% discount has been applied, mouse as a gift was assigned",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "Message"
+                        }
+                    ]
+                },
+                {
+                    "id": "fcf23f86-e073-b832-fa5f-b0d7461f75d8",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "259a16d4-7900-7414-40a8-958093926255",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "{productName.productCode}",
+                                "type": "function",
+                                "stringValue": "{productName.productCode}"
+                            },
+                            "modelVariablePath": "productName.productCode"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "456bf905-b4f0-81d0-0bcb-966750f84193",
+            "operandText": "If",
+            "type": "if",
+            "nodes": [
+                {
+                    "id": "2e84d96f-b255-8c47-de30-d950c8a8dda7",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "between",
+                        "value": [
+                            {
+                                "date": "2022-10-19",
+                                "timezone": "+02:00"
+                            },
+                            {
+                                "date": "2022-10-31",
+                                "timezone": "+02:00"
+                            }
+                        ],
+                        "type": "date"
+                    },
+                    "modelVariablePath": "productName.discountValidity.endDate"
+                },
+                {
+                    "id": "99f91f31-871f-020c-a48a-c5fce31420bf",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "=",
+                        "value": "1",
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.branchCode"
+                },
+                {
+                    "id": "09144e22-00a6-79f6-c16b-be604764b4fc",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "betweenRightOpen",
+                        "value": [
+                            "300",
+                            "500"
+                        ],
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.productPrice"
+                },
+                {
+                    "id": "07bd3d0d-209b-6a00-9e92-77703d18ddcf",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "a32ad85f-7ea4-99b2-60ac-6bcf0228c7ef",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "0,15",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.percentageDiscount"
+                        }
+                    ]
+                },
+                {
+                    "id": "5c05752c-371a-c6f6-060b-96ebc72db89d",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "132f4111-4dcf-5eab-b2cf-f50401f1e33a",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": {
+                                    "functionName": "TIMES_CHAR",
+                                    "parameters": [
+                                        "{productName.productPrice}",
+                                        "0.85"
+                                    ]
+                                },
+                                "type": "function",
+                                "stringValue": "{productName.productPrice} * 0.85"
+                            },
+                            "modelVariablePath": "productName.productPriceFinal"
+                        }
+                    ]
+                },
+                {
+                    "id": "ef429d2f-3b84-b7a6-dc46-a0e378ccfd03",
+                    "nodes": [
+                        {
+                            "id": "ef023d23-a458-8904-3cab-1b13bda081b5",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "da9d9ec9-049e-d252-3825-f17108f455ac",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": "betweenRightOpen",
+                                        "value": [
+                                            "100",
+                                            "300"
+                                        ],
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.stockQuantity"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "0706e91c-4e91-251d-35ef-760f21424f81",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "58e4e3db-5a0c-d4c6-a070-8856a9e501cf",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": "betweenRightOpen",
+                                        "value": [
+                                            "100",
+                                            "200"
+                                        ],
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.salesLastMonth"
+                                }
+                            ]
+                        }
+                    ],
+                    "type": "logic_or",
+                    "operandText": "Or"
+                },
+                {
+                    "id": "424d625a-c15b-fbcd-8152-93ba1c0de847",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "eee5ba40-e211-8c21-e613-390afe40bdcf",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "office 365 1-year license",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGift"
+                        },
+                        {
+                            "id": "62f03eb4-f412-5aed-9e3c-2fee12972651",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "72572",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGiftCode"
+                        }
+                    ]
+                },
+                {
+                    "id": "45ca7ed3-21e0-9777-3de4-ac1ff064c136",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "e6d5e5b7-0344-f997-64a1-4df137ef0b06",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "15% discount has been applied, office 365 1-year license as a gift was assigned",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "Message"
+                        },
+                        {
+                            "id": "96fdf609-43a5-d61f-2931-1978513c63d9",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "{productName.productCode}",
+                                "type": "function",
+                                "stringValue": "{productName.productCode}"
+                            },
+                            "modelVariablePath": "productName.productCode"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "738e200b-12a4-8a9b-ce63-3542f8ed5df7",
+            "operandText": "If",
+            "type": "if",
+            "nodes": [
+                {
+                    "id": "2e84d96f-b255-8c47-de30-d950c8a8dda7",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "between",
+                        "value": [
+                            {
+                                "date": "2022-10-19",
+                                "timezone": "+02:00"
+                            },
+                            {
+                                "date": "2022-10-31",
+                                "timezone": "+02:00"
+                            }
+                        ],
+                        "type": "date"
+                    },
+                    "modelVariablePath": "productName.discountValidity.endDate"
+                },
+                {
+                    "id": "99f91f31-871f-020c-a48a-c5fce31420bf",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "=",
+                        "value": "1",
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.branchCode"
+                },
+                {
+                    "id": "09144e22-00a6-79f6-c16b-be604764b4fc",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "betweenRightOpen",
+                        "value": [
+                            "300",
+                            "500"
+                        ],
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.productPrice"
+                },
+                {
+                    "id": "9e6cbe5d-67de-1c8c-47d3-6b4dbef37b1d",
+                    "nodes": [
+                        {
+                            "id": "ef023d23-a458-8904-3cab-1b13bda081b5",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "da9d9ec9-049e-d252-3825-f17108f455ac",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": ">=",
+                                        "value": "300",
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.stockQuantity"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "0706e91c-4e91-251d-35ef-760f21424f81",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "58e4e3db-5a0c-d4c6-a070-8856a9e501cf",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": ">=",
+                                        "value": "200",
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.salesLastMonth"
+                                }
+                            ]
+                        }
+                    ],
+                    "type": "logic_or",
+                    "operandText": "Or"
+                },
+                {
+                    "id": "07bd3d0d-209b-6a00-9e92-77703d18ddcf",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "a32ad85f-7ea4-99b2-60ac-6bcf0228c7ef",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "0,25",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.percentageDiscount"
+                        }
+                    ]
+                },
+                {
+                    "id": "5c05752c-371a-c6f6-060b-96ebc72db89d",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "132f4111-4dcf-5eab-b2cf-f50401f1e33a",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": {
+                                    "functionName": "TIMES_CHAR",
+                                    "parameters": [
+                                        "{productName.productPrice}",
+                                        "0.75"
+                                    ]
+                                },
+                                "type": "function",
+                                "stringValue": "{productName.productPrice} * 0.75"
+                            },
+                            "modelVariablePath": "productName.productPriceFinal"
+                        }
+                    ]
+                },
+                {
+                    "id": "24c3145e-09f3-6cae-666e-bf687c79f871",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "eee5ba40-e211-8c21-e613-390afe40bdcf",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "graphic tablet",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGift"
+                        },
+                        {
+                            "id": "62f03eb4-f412-5aed-9e3c-2fee12972651",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "63712",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGiftCode"
+                        }
+                    ]
+                },
+                {
+                    "id": "ce5fad50-3740-361a-4c1c-e4ae53a36d55",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "e6d5e5b7-0344-f997-64a1-4df137ef0b06",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "25% discount has been applied, graphic tablet as a gift was assigned",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "Message"
+                        },
+                        {
+                            "id": "96fdf609-43a5-d61f-2931-1978513c63d9",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "{productName.productCode}",
+                                "type": "function",
+                                "stringValue": "{productName.productCode}"
+                            },
+                            "modelVariablePath": "productName.productCode"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "03589f86-2d8c-11c9-1d6e-6a73a224a32c",
+            "operandText": "If",
+            "type": "if",
+            "nodes": [
+                {
+                    "id": "2e84d96f-b255-8c47-de30-d950c8a8dda7",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "between",
+                        "value": [
+                            {
+                                "date": "2022-10-19",
+                                "timezone": "+02:00"
+                            },
+                            {
+                                "date": "2022-10-31",
+                                "timezone": "+02:00"
+                            }
+                        ],
+                        "type": "date"
+                    },
+                    "modelVariablePath": "productName.discountValidity.endDate"
+                },
+                {
+                    "id": "99f91f31-871f-020c-a48a-c5fce31420bf",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "=",
+                        "value": "1",
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.branchCode"
+                },
+                {
+                    "id": "09144e22-00a6-79f6-c16b-be604764b4fc",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "betweenRightOpen",
+                        "value": [
+                            "500",
+                            "700"
+                        ],
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.productPrice"
+                },
+                {
+                    "id": "a91bbd77-5f08-07df-1e29-2877938021ab",
+                    "nodes": [
+                        {
+                            "id": "ef023d23-a458-8904-3cab-1b13bda081b5",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "da9d9ec9-049e-d252-3825-f17108f455ac",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": "betweenRightOpen",
+                                        "value": [
+                                            "0",
+                                            "100"
+                                        ],
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.stockQuantity"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "0706e91c-4e91-251d-35ef-760f21424f81",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "58e4e3db-5a0c-d4c6-a070-8856a9e501cf",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": "betweenRightOpen",
+                                        "value": [
+                                            "0",
+                                            "100"
+                                        ],
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.salesLastMonth"
+                                }
+                            ]
+                        }
+                    ],
+                    "type": "logic_or",
+                    "operandText": "Or"
+                },
+                {
+                    "id": "9cfb5c09-d671-d91a-43dc-4992552f2867",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "a32ad85f-7ea4-99b2-60ac-6bcf0228c7ef",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "0,1",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.percentageDiscount"
+                        }
+                    ]
+                },
+                {
+                    "id": "7a69d8f8-5286-5a17-fdbd-1151634a5e67",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "132f4111-4dcf-5eab-b2cf-f50401f1e33a",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": {
+                                    "functionName": "TIMES_CHAR",
+                                    "parameters": [
+                                        "{productName.productPrice}",
+                                        "0.9"
+                                    ]
+                                },
+                                "type": "function",
+                                "stringValue": "{productName.productPrice} * 0.9"
+                            },
+                            "modelVariablePath": "productName.productPriceFinal"
+                        }
+                    ]
+                },
+                {
+                    "id": "424d625a-c15b-fbcd-8152-93ba1c0de847",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "eee5ba40-e211-8c21-e613-390afe40bdcf",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "mouse",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGift"
+                        },
+                        {
+                            "id": "62f03eb4-f412-5aed-9e3c-2fee12972651",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "61434",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGiftCode"
+                        }
+                    ]
+                },
+                {
+                    "id": "7e36f8ec-59b1-d4f3-08fd-4be3a484fac9",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "e6d5e5b7-0344-f997-64a1-4df137ef0b06",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "10% discount has been applied, mouse as a gift was assigned",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "Message"
+                        },
+                        {
+                            "id": "96fdf609-43a5-d61f-2931-1978513c63d9",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "{productName.productCode}",
+                                "type": "function",
+                                "stringValue": "{productName.productCode}"
+                            },
+                            "modelVariablePath": "productName.productCode"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "02edd323-6bde-6592-a8f9-06072e6b873a",
+            "operandText": "If",
+            "type": "if",
+            "nodes": [
+                {
+                    "id": "2e84d96f-b255-8c47-de30-d950c8a8dda7",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "between",
+                        "value": [
+                            {
+                                "date": "2022-10-19",
+                                "timezone": "+02:00"
+                            },
+                            {
+                                "date": "2022-10-31",
+                                "timezone": "+02:00"
+                            }
+                        ],
+                        "type": "date"
+                    },
+                    "modelVariablePath": "productName.discountValidity.endDate"
+                },
+                {
+                    "id": "99f91f31-871f-020c-a48a-c5fce31420bf",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "=",
+                        "value": "1",
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.branchCode"
+                },
+                {
+                    "id": "09144e22-00a6-79f6-c16b-be604764b4fc",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "betweenRightOpen",
+                        "value": [
+                            "500",
+                            "700"
+                        ],
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.productPrice"
+                },
+                {
+                    "id": "a91bbd77-5f08-07df-1e29-2877938021ab",
+                    "nodes": [
+                        {
+                            "id": "ef023d23-a458-8904-3cab-1b13bda081b5",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "da9d9ec9-049e-d252-3825-f17108f455ac",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": "betweenRightOpen",
+                                        "value": [
+                                            "100",
+                                            "300"
+                                        ],
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.stockQuantity"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "0706e91c-4e91-251d-35ef-760f21424f81",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "58e4e3db-5a0c-d4c6-a070-8856a9e501cf",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": "betweenRightOpen",
+                                        "value": [
+                                            "100",
+                                            "200"
+                                        ],
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.salesLastMonth"
+                                }
+                            ]
+                        }
+                    ],
+                    "type": "logic_or",
+                    "operandText": "Or"
+                },
+                {
+                    "id": "9cfb5c09-d671-d91a-43dc-4992552f2867",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "a32ad85f-7ea4-99b2-60ac-6bcf0228c7ef",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "0,15",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.percentageDiscount"
+                        }
+                    ]
+                },
+                {
+                    "id": "7a69d8f8-5286-5a17-fdbd-1151634a5e67",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "132f4111-4dcf-5eab-b2cf-f50401f1e33a",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": {
+                                    "functionName": "TIMES_CHAR",
+                                    "parameters": [
+                                        "{productName.productPrice}",
+                                        "0.85"
+                                    ]
+                                },
+                                "type": "function",
+                                "stringValue": "{productName.productPrice} * 0.85"
+                            },
+                            "modelVariablePath": "productName.productPriceFinal"
+                        }
+                    ]
+                },
+                {
+                    "id": "3da2ce3e-0666-c4db-72f9-476431426df7",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "eee5ba40-e211-8c21-e613-390afe40bdcf",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "office 365 1-year license",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGift"
+                        },
+                        {
+                            "id": "62f03eb4-f412-5aed-9e3c-2fee12972651",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "72572",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGiftCode"
+                        }
+                    ]
+                },
+                {
+                    "id": "9657a3f9-91d3-2a03-bdea-3b807ddd6244",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "e6d5e5b7-0344-f997-64a1-4df137ef0b06",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "15% discount has been applied, office 365 1-year license as a gift was assigned",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "Message"
+                        },
+                        {
+                            "id": "96fdf609-43a5-d61f-2931-1978513c63d9",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "{productName.productCode}",
+                                "type": "function",
+                                "stringValue": "{productName.productCode}"
+                            },
+                            "modelVariablePath": "productName.productCode"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "554605e4-bf1b-36bb-1a0e-e79b2580f45f",
+            "operandText": "If",
+            "type": "if",
+            "nodes": [
+                {
+                    "id": "2e84d96f-b255-8c47-de30-d950c8a8dda7",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "between",
+                        "value": [
+                            {
+                                "date": "2022-10-19",
+                                "timezone": "+02:00"
+                            },
+                            {
+                                "date": "2022-10-31",
+                                "timezone": "+02:00"
+                            }
+                        ],
+                        "type": "date"
+                    },
+                    "modelVariablePath": "productName.discountValidity.endDate"
+                },
+                {
+                    "id": "99f91f31-871f-020c-a48a-c5fce31420bf",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "=",
+                        "value": "1",
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.branchCode"
+                },
+                {
+                    "id": "09144e22-00a6-79f6-c16b-be604764b4fc",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "betweenRightOpen",
+                        "value": [
+                            "500",
+                            "700"
+                        ],
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.productPrice"
+                },
+                {
+                    "id": "a91bbd77-5f08-07df-1e29-2877938021ab",
+                    "nodes": [
+                        {
+                            "id": "ef023d23-a458-8904-3cab-1b13bda081b5",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "da9d9ec9-049e-d252-3825-f17108f455ac",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": ">=",
+                                        "value": "300",
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.stockQuantity"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "0706e91c-4e91-251d-35ef-760f21424f81",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "58e4e3db-5a0c-d4c6-a070-8856a9e501cf",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": ">=",
+                                        "value": "200",
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.salesLastMonth"
+                                }
+                            ]
+                        }
+                    ],
+                    "type": "logic_or",
+                    "operandText": "Or"
+                },
+                {
+                    "id": "9cfb5c09-d671-d91a-43dc-4992552f2867",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "a32ad85f-7ea4-99b2-60ac-6bcf0228c7ef",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "0,25",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.percentageDiscount"
+                        }
+                    ]
+                },
+                {
+                    "id": "7a69d8f8-5286-5a17-fdbd-1151634a5e67",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "132f4111-4dcf-5eab-b2cf-f50401f1e33a",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": {
+                                    "functionName": "TIMES_CHAR",
+                                    "parameters": [
+                                        "{productName.productPrice}",
+                                        "0.75"
+                                    ]
+                                },
+                                "type": "function",
+                                "stringValue": "{productName.productPrice} * 0.75"
+                            },
+                            "modelVariablePath": "productName.productPriceFinal"
+                        }
+                    ]
+                },
+                {
+                    "id": "ec0b5bf0-c427-39b1-0d63-5a21a7621085",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "eee5ba40-e211-8c21-e613-390afe40bdcf",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "graphic tablet",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGift"
+                        },
+                        {
+                            "id": "62f03eb4-f412-5aed-9e3c-2fee12972651",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "63712",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGiftCode"
+                        }
+                    ]
+                },
+                {
+                    "id": "e7e62f85-a32b-5290-8ec9-113ed9c4f42f",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "e6d5e5b7-0344-f997-64a1-4df137ef0b06",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "25% discount has been applied, graphic tablet as a gift was assigned",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "Message"
+                        },
+                        {
+                            "id": "96fdf609-43a5-d61f-2931-1978513c63d9",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "{productName.productCode}",
+                                "type": "function",
+                                "stringValue": "{productName.productCode}"
+                            },
+                            "modelVariablePath": "productName.productCode"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "efcb5a96-8469-5832-24ce-09aa7f43ee33",
+            "operandText": "If",
+            "type": "if",
+            "nodes": [
+                {
+                    "id": "2e84d96f-b255-8c47-de30-d950c8a8dda7",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "between",
+                        "value": [
+                            {
+                                "date": "2022-10-19",
+                                "timezone": "+02:00"
+                            },
+                            {
+                                "date": "2022-10-31",
+                                "timezone": "+02:00"
+                            }
+                        ],
+                        "type": "date"
+                    },
+                    "modelVariablePath": "productName.discountValidity.endDate"
+                },
+                {
+                    "id": "99f91f31-871f-020c-a48a-c5fce31420bf",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "=",
+                        "value": "1",
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.branchCode"
+                },
+                {
+                    "id": "09144e22-00a6-79f6-c16b-be604764b4fc",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": ">=",
+                        "value": "700",
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.productPrice"
+                },
+                {
+                    "id": "a39af934-1bc5-7219-3e06-9d327e2f86c0",
+                    "nodes": [
+                        {
+                            "id": "ef023d23-a458-8904-3cab-1b13bda081b5",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "da9d9ec9-049e-d252-3825-f17108f455ac",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": "betweenRightOpen",
+                                        "value": [
+                                            "0",
+                                            "100"
+                                        ],
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.stockQuantity"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "0706e91c-4e91-251d-35ef-760f21424f81",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "58e4e3db-5a0c-d4c6-a070-8856a9e501cf",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": "betweenRightOpen",
+                                        "value": [
+                                            "0",
+                                            "100"
+                                        ],
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.salesLastMonth"
+                                }
+                            ]
+                        }
+                    ],
+                    "type": "logic_or",
+                    "operandText": "Or"
+                },
+                {
+                    "id": "c2dd8591-25a3-cbbb-be3e-00e46d37c050",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "a32ad85f-7ea4-99b2-60ac-6bcf0228c7ef",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "0,1",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.percentageDiscount"
+                        }
+                    ]
+                },
+                {
+                    "id": "e3a23cf6-4b9e-1083-5a76-12c2a604df38",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "132f4111-4dcf-5eab-b2cf-f50401f1e33a",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": {
+                                    "functionName": "TIMES_CHAR",
+                                    "parameters": [
+                                        "{productName.productPrice}",
+                                        "0.9"
+                                    ]
+                                },
+                                "type": "function",
+                                "stringValue": "{productName.productPrice} * 0.9"
+                            },
+                            "modelVariablePath": "productName.productPriceFinal"
+                        }
+                    ]
+                },
+                {
+                    "id": "3da2ce3e-0666-c4db-72f9-476431426df7",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "eee5ba40-e211-8c21-e613-390afe40bdcf",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "mouse",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGift"
+                        },
+                        {
+                            "id": "62f03eb4-f412-5aed-9e3c-2fee12972651",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "61434",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGiftCode"
+                        }
+                    ]
+                },
+                {
+                    "id": "546304b0-394e-62d7-10fc-443fa6a4e3b4",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "e6d5e5b7-0344-f997-64a1-4df137ef0b06",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "10% discount has been applied, mouse as a gift was assigned",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "Message"
+                        },
+                        {
+                            "id": "96fdf609-43a5-d61f-2931-1978513c63d9",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "{productName.productCode}",
+                                "type": "function",
+                                "stringValue": "{productName.productCode}"
+                            },
+                            "modelVariablePath": "productName.productCode"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "7e0fd2ea-41a4-90c7-2430-f4e2b8e77f8e",
+            "operandText": "If",
+            "type": "if",
+            "nodes": [
+                {
+                    "id": "2e84d96f-b255-8c47-de30-d950c8a8dda7",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "between",
+                        "value": [
+                            {
+                                "date": "2022-10-19",
+                                "timezone": "+02:00"
+                            },
+                            {
+                                "date": "2022-10-31",
+                                "timezone": "+02:00"
+                            }
+                        ],
+                        "type": "date"
+                    },
+                    "modelVariablePath": "productName.discountValidity.endDate"
+                },
+                {
+                    "id": "99f91f31-871f-020c-a48a-c5fce31420bf",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "=",
+                        "value": "1",
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.branchCode"
+                },
+                {
+                    "id": "09144e22-00a6-79f6-c16b-be604764b4fc",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": ">=",
+                        "value": "700",
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.productPrice"
+                },
+                {
+                    "id": "a39af934-1bc5-7219-3e06-9d327e2f86c0",
+                    "nodes": [
+                        {
+                            "id": "ef023d23-a458-8904-3cab-1b13bda081b5",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "da9d9ec9-049e-d252-3825-f17108f455ac",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": "betweenRightOpen",
+                                        "value": [
+                                            "100",
+                                            "300"
+                                        ],
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.stockQuantity"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "0706e91c-4e91-251d-35ef-760f21424f81",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "58e4e3db-5a0c-d4c6-a070-8856a9e501cf",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": "betweenRightOpen",
+                                        "value": [
+                                            "100",
+                                            "200"
+                                        ],
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.salesLastMonth"
+                                }
+                            ]
+                        }
+                    ],
+                    "type": "logic_or",
+                    "operandText": "Or"
+                },
+                {
+                    "id": "c2dd8591-25a3-cbbb-be3e-00e46d37c050",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "a32ad85f-7ea4-99b2-60ac-6bcf0228c7ef",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "0,15",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.percentageDiscount"
+                        }
+                    ]
+                },
+                {
+                    "id": "e3a23cf6-4b9e-1083-5a76-12c2a604df38",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "132f4111-4dcf-5eab-b2cf-f50401f1e33a",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": {
+                                    "functionName": "TIMES_CHAR",
+                                    "parameters": [
+                                        "{productName.productPrice}",
+                                        "0.85"
+                                    ]
+                                },
+                                "type": "function",
+                                "stringValue": "{productName.productPrice} * 0.85"
+                            },
+                            "modelVariablePath": "productName.productPriceFinal"
+                        }
+                    ]
+                },
+                {
+                    "id": "3da2ce3e-0666-c4db-72f9-476431426df7",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "eee5ba40-e211-8c21-e613-390afe40bdcf",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "office 365 1-year license",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGift"
+                        },
+                        {
+                            "id": "62f03eb4-f412-5aed-9e3c-2fee12972651",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "72572",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGiftCode"
+                        }
+                    ]
+                },
+                {
+                    "id": "0bebcf2e-9a6c-5b1c-df72-4a7b337dc9cd",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "e6d5e5b7-0344-f997-64a1-4df137ef0b06",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "15% discount has been applied, office 365 1-year license as a gift was assigned",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "Message"
+                        },
+                        {
+                            "id": "96fdf609-43a5-d61f-2931-1978513c63d9",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "{productName.productCode}",
+                                "type": "function",
+                                "stringValue": "{productName.productCode}"
+                            },
+                            "modelVariablePath": "productName.productCode"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "6d01e9a3-bb9b-4f6b-b539-74d7fe0dc0b4",
+            "operandText": "If",
+            "type": "if",
+            "nodes": [
+                {
+                    "id": "2e84d96f-b255-8c47-de30-d950c8a8dda7",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "between",
+                        "value": [
+                            {
+                                "date": "2022-10-19",
+                                "timezone": "+02:00"
+                            },
+                            {
+                                "date": "2022-10-31",
+                                "timezone": "+02:00"
+                            }
+                        ],
+                        "type": "date"
+                    },
+                    "modelVariablePath": "productName.discountValidity.endDate"
+                },
+                {
+                    "id": "99f91f31-871f-020c-a48a-c5fce31420bf",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "=",
+                        "value": "1",
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.branchCode"
+                },
+                {
+                    "id": "09144e22-00a6-79f6-c16b-be604764b4fc",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": ">=",
+                        "value": "700",
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.productPrice"
+                },
+                {
+                    "id": "a39af934-1bc5-7219-3e06-9d327e2f86c0",
+                    "nodes": [
+                        {
+                            "id": "ef023d23-a458-8904-3cab-1b13bda081b5",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "da9d9ec9-049e-d252-3825-f17108f455ac",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": ">=",
+                                        "value": "300",
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.stockQuantity"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "0706e91c-4e91-251d-35ef-760f21424f81",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "58e4e3db-5a0c-d4c6-a070-8856a9e501cf",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": ">=",
+                                        "value": "200",
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.salesLastMonth"
+                                }
+                            ]
+                        }
+                    ],
+                    "type": "logic_or",
+                    "operandText": "Or"
+                },
+                {
+                    "id": "c2dd8591-25a3-cbbb-be3e-00e46d37c050",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "a32ad85f-7ea4-99b2-60ac-6bcf0228c7ef",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "0,25",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.percentageDiscount"
+                        }
+                    ]
+                },
+                {
+                    "id": "e3a23cf6-4b9e-1083-5a76-12c2a604df38",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "132f4111-4dcf-5eab-b2cf-f50401f1e33a",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": {
+                                    "functionName": "TIMES_CHAR",
+                                    "parameters": [
+                                        "{productName.productPrice}",
+                                        "0.75"
+                                    ]
+                                },
+                                "type": "function",
+                                "stringValue": "{productName.productPrice} * 0.75"
+                            },
+                            "modelVariablePath": "productName.productPriceFinal"
+                        }
+                    ]
+                },
+                {
+                    "id": "3da2ce3e-0666-c4db-72f9-476431426df7",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "eee5ba40-e211-8c21-e613-390afe40bdcf",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "graphic tablet",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGift"
+                        },
+                        {
+                            "id": "62f03eb4-f412-5aed-9e3c-2fee12972651",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "63712",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGiftCode"
+                        }
+                    ]
+                },
+                {
+                    "id": "088ee6ac-1f25-9d16-47af-1950b8f8a907",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "e6d5e5b7-0344-f997-64a1-4df137ef0b06",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "25% discount has been applied, graphic tablet as a gift was assigned",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "Message"
+                        },
+                        {
+                            "id": "96fdf609-43a5-d61f-2931-1978513c63d9",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "{productName.productCode}",
+                                "type": "function",
+                                "stringValue": "{productName.productCode}"
+                            },
+                            "modelVariablePath": "productName.productCode"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "ef3c7762-c43e-2ad2-56c2-1b5878685d0a",
+            "operandText": "If",
+            "type": "if",
+            "nodes": [
+                {
+                    "id": "2e84d96f-b255-8c47-de30-d950c8a8dda7",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "notBetween",
+                        "value": [
+                            {
+                                "date": "2022-10-19",
+                                "timezone": "+02:00"
+                            },
+                            {
+                                "date": "2022-10-31",
+                                "timezone": "+02:00"
+                            }
+                        ],
+                        "type": "date"
+                    },
+                    "modelVariablePath": "productName.discountValidity.endDate"
+                },
+                {
+                    "id": "99f91f31-871f-020c-a48a-c5fce31420bf",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "anything",
+                        "value": "",
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.branchCode"
+                },
+                {
+                    "id": "09144e22-00a6-79f6-c16b-be604764b4fc",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "anything",
+                        "value": "",
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.productPrice"
+                },
+                {
+                    "id": "82586313-a07a-f3f5-8bf9-b120da691147",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "d2021f9f-3912-2abf-8583-edac695adb2e",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "no discount has been applied and no gift was assigned",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "Message"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "20c328b4-66d3-1d5d-d7d7-3c3d249287d0",
+            "operandText": "If",
+            "type": "if",
+            "nodes": [
+                {
+                    "id": "2e84d96f-b255-8c47-de30-d950c8a8dda7",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "between",
+                        "value": [
+                            {
+                                "date": "2022-10-19",
+                                "timezone": "+02:00"
+                            },
+                            {
+                                "date": "2022-10-31",
+                                "timezone": "+02:00"
+                            }
+                        ],
+                        "type": "date"
+                    },
+                    "modelVariablePath": "productName.discountValidity.endDate"
+                },
+                {
+                    "id": "99f91f31-871f-020c-a48a-c5fce31420bf",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "=",
+                        "value": "2",
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.branchCode"
+                },
+                {
+                    "id": "09144e22-00a6-79f6-c16b-be604764b4fc",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "betweenRightOpen",
+                        "value": [
+                            "0",
+                            "200"
+                        ],
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.productPrice"
+                },
+                {
+                    "id": "a39af934-1bc5-7219-3e06-9d327e2f86c0",
+                    "nodes": [
+                        {
+                            "id": "ef023d23-a458-8904-3cab-1b13bda081b5",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "da9d9ec9-049e-d252-3825-f17108f455ac",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": "betweenRightOpen",
+                                        "value": [
+                                            "0",
+                                            "100"
+                                        ],
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.stockQuantity"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "0706e91c-4e91-251d-35ef-760f21424f81",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "58e4e3db-5a0c-d4c6-a070-8856a9e501cf",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": "betweenRightOpen",
+                                        "value": [
+                                            "0",
+                                            "100"
+                                        ],
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.salesLastMonth"
+                                }
+                            ]
+                        }
+                    ],
+                    "type": "logic_or",
+                    "operandText": "Or"
+                },
+                {
+                    "id": "c2dd8591-25a3-cbbb-be3e-00e46d37c050",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "a32ad85f-7ea4-99b2-60ac-6bcf0228c7ef",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "20",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.absoluteDiscount"
+                        }
+                    ]
+                },
+                {
+                    "id": "e3a23cf6-4b9e-1083-5a76-12c2a604df38",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "132f4111-4dcf-5eab-b2cf-f50401f1e33a",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": {
+                                    "functionName": "MINUS_CHAR",
+                                    "parameters": [
+                                        "{productName.productPrice}",
+                                        "20"
+                                    ]
+                                },
+                                "type": "function",
+                                "stringValue": "{productName.productPrice} - 20"
+                            },
+                            "modelVariablePath": "productName.productPriceFinal"
+                        }
+                    ]
+                },
+                {
+                    "id": "3da2ce3e-0666-c4db-72f9-476431426df7",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "eee5ba40-e211-8c21-e613-390afe40bdcf",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "active band",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGift"
+                        },
+                        {
+                            "id": "62f03eb4-f412-5aed-9e3c-2fee12972651",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "51235",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGiftCode"
+                        }
+                    ]
+                },
+                {
+                    "id": "0cd5749a-9cfc-5447-01c7-6505ca72e75f",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "e6d5e5b7-0344-f997-64a1-4df137ef0b06",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "20 USD absolute discount has been applied, active band as a gift was assigned",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "Message"
+                        },
+                        {
+                            "id": "96fdf609-43a5-d61f-2931-1978513c63d9",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "{productName.productCode}",
+                                "type": "function",
+                                "stringValue": "{productName.productCode}"
+                            },
+                            "modelVariablePath": "productName.productCode"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "2fef6e64-08c5-9c05-57a8-99120c77cb8a",
+            "operandText": "If",
+            "type": "if",
+            "nodes": [
+                {
+                    "id": "2e84d96f-b255-8c47-de30-d950c8a8dda7",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "between",
+                        "value": [
+                            {
+                                "date": "2022-10-19",
+                                "timezone": "+02:00"
+                            },
+                            {
+                                "date": "2022-10-31",
+                                "timezone": "+02:00"
+                            }
+                        ],
+                        "type": "date"
+                    },
+                    "modelVariablePath": "productName.discountValidity.endDate"
+                },
+                {
+                    "id": "99f91f31-871f-020c-a48a-c5fce31420bf",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "=",
+                        "value": "2",
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.branchCode"
+                },
+                {
+                    "id": "09144e22-00a6-79f6-c16b-be604764b4fc",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "betweenRightOpen",
+                        "value": [
+                            "0",
+                            "200"
+                        ],
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.productPrice"
+                },
+                {
+                    "id": "a39af934-1bc5-7219-3e06-9d327e2f86c0",
+                    "nodes": [
+                        {
+                            "id": "ef023d23-a458-8904-3cab-1b13bda081b5",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "da9d9ec9-049e-d252-3825-f17108f455ac",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": "betweenRightOpen",
+                                        "value": [
+                                            "100",
+                                            "300"
+                                        ],
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.stockQuantity"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "0706e91c-4e91-251d-35ef-760f21424f81",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "58e4e3db-5a0c-d4c6-a070-8856a9e501cf",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": "betweenRightOpen",
+                                        "value": [
+                                            "100",
+                                            "200"
+                                        ],
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.salesLastMonth"
+                                }
+                            ]
+                        }
+                    ],
+                    "type": "logic_or",
+                    "operandText": "Or"
+                },
+                {
+                    "id": "c2dd8591-25a3-cbbb-be3e-00e46d37c050",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "a32ad85f-7ea4-99b2-60ac-6bcf0228c7ef",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "40",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.absoluteDiscount"
+                        }
+                    ]
+                },
+                {
+                    "id": "e3a23cf6-4b9e-1083-5a76-12c2a604df38",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "132f4111-4dcf-5eab-b2cf-f50401f1e33a",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": {
+                                    "functionName": "MINUS_CHAR",
+                                    "parameters": [
+                                        "{productName.productPrice}",
+                                        "40"
+                                    ]
+                                },
+                                "type": "function",
+                                "stringValue": "{productName.productPrice} - 40"
+                            },
+                            "modelVariablePath": "productName.productPriceFinal"
+                        }
+                    ]
+                },
+                {
+                    "id": "3da2ce3e-0666-c4db-72f9-476431426df7",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "eee5ba40-e211-8c21-e613-390afe40bdcf",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "active band",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGift"
+                        },
+                        {
+                            "id": "62f03eb4-f412-5aed-9e3c-2fee12972651",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "51235",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGiftCode"
+                        }
+                    ]
+                },
+                {
+                    "id": "6964186e-565e-6f22-fcc3-574848cfe49d",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "e6d5e5b7-0344-f997-64a1-4df137ef0b06",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "40 USD absolute discount has been applied, active band as a gift was assigned",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "Message"
+                        },
+                        {
+                            "id": "96fdf609-43a5-d61f-2931-1978513c63d9",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "{productName.productCode}",
+                                "type": "function",
+                                "stringValue": "{productName.productCode}"
+                            },
+                            "modelVariablePath": "productName.productCode"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "09128de6-9fdb-88da-58eb-9e1e9d89ac4c",
+            "operandText": "If",
+            "type": "if",
+            "nodes": [
+                {
+                    "id": "2e84d96f-b255-8c47-de30-d950c8a8dda7",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "between",
+                        "value": [
+                            {
+                                "date": "2022-10-19",
+                                "timezone": "+02:00"
+                            },
+                            {
+                                "date": "2022-10-31",
+                                "timezone": "+02:00"
+                            }
+                        ],
+                        "type": "date"
+                    },
+                    "modelVariablePath": "productName.discountValidity.endDate"
+                },
+                {
+                    "id": "99f91f31-871f-020c-a48a-c5fce31420bf",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "=",
+                        "value": "2",
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.branchCode"
+                },
+                {
+                    "id": "09144e22-00a6-79f6-c16b-be604764b4fc",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "betweenRightOpen",
+                        "value": [
+                            "0",
+                            "200"
+                        ],
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.productPrice"
+                },
+                {
+                    "id": "a39af934-1bc5-7219-3e06-9d327e2f86c0",
+                    "nodes": [
+                        {
+                            "id": "ef023d23-a458-8904-3cab-1b13bda081b5",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "da9d9ec9-049e-d252-3825-f17108f455ac",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": ">=",
+                                        "value": "300",
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.stockQuantity"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "0706e91c-4e91-251d-35ef-760f21424f81",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "58e4e3db-5a0c-d4c6-a070-8856a9e501cf",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": ">=",
+                                        "value": "200",
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.salesLastMonth"
+                                }
+                            ]
+                        }
+                    ],
+                    "type": "logic_or",
+                    "operandText": "Or"
+                },
+                {
+                    "id": "c2dd8591-25a3-cbbb-be3e-00e46d37c050",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "a32ad85f-7ea4-99b2-60ac-6bcf0228c7ef",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "60",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.absoluteDiscount"
+                        }
+                    ]
+                },
+                {
+                    "id": "e3a23cf6-4b9e-1083-5a76-12c2a604df38",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "132f4111-4dcf-5eab-b2cf-f50401f1e33a",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": {
+                                    "functionName": "MINUS_CHAR",
+                                    "parameters": [
+                                        "{productName.productPrice}",
+                                        "60"
+                                    ]
+                                },
+                                "type": "function",
+                                "stringValue": "{productName.productPrice} - 60"
+                            },
+                            "modelVariablePath": "productName.productPriceFinal"
+                        }
+                    ]
+                },
+                {
+                    "id": "3da2ce3e-0666-c4db-72f9-476431426df7",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "eee5ba40-e211-8c21-e613-390afe40bdcf",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "active band",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGift"
+                        },
+                        {
+                            "id": "62f03eb4-f412-5aed-9e3c-2fee12972651",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "51235",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGiftCode"
+                        }
+                    ]
+                },
+                {
+                    "id": "61e262bd-7aa3-5070-8371-c709051663cd",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "e6d5e5b7-0344-f997-64a1-4df137ef0b06",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "60 USD absolute discount has been applied, active band as a gift was assigned",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "Message"
+                        },
+                        {
+                            "id": "96fdf609-43a5-d61f-2931-1978513c63d9",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "{productName.productCode}",
+                                "type": "function",
+                                "stringValue": "{productName.productCode}"
+                            },
+                            "modelVariablePath": "productName.productCode"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "c7ba40e0-5584-7e81-16b5-a45c0c5b7f8b",
+            "operandText": "If",
+            "type": "if",
+            "nodes": [
+                {
+                    "id": "2e84d96f-b255-8c47-de30-d950c8a8dda7",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "between",
+                        "value": [
+                            {
+                                "date": "2022-10-19",
+                                "timezone": "+02:00"
+                            },
+                            {
+                                "date": "2022-10-31",
+                                "timezone": "+02:00"
+                            }
+                        ],
+                        "type": "date"
+                    },
+                    "modelVariablePath": "productName.discountValidity.endDate"
+                },
+                {
+                    "id": "99f91f31-871f-020c-a48a-c5fce31420bf",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "=",
+                        "value": "2",
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.branchCode"
+                },
+                {
+                    "id": "09144e22-00a6-79f6-c16b-be604764b4fc",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "betweenRightOpen",
+                        "value": [
+                            "200",
+                            "500"
+                        ],
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.productPrice"
+                },
+                {
+                    "id": "a39af934-1bc5-7219-3e06-9d327e2f86c0",
+                    "nodes": [
+                        {
+                            "id": "ef023d23-a458-8904-3cab-1b13bda081b5",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "da9d9ec9-049e-d252-3825-f17108f455ac",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": "betweenRightOpen",
+                                        "value": [
+                                            "0",
+                                            "100"
+                                        ],
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.stockQuantity"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "0706e91c-4e91-251d-35ef-760f21424f81",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "58e4e3db-5a0c-d4c6-a070-8856a9e501cf",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": "betweenRightOpen",
+                                        "value": [
+                                            "0",
+                                            "100"
+                                        ],
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.salesLastMonth"
+                                }
+                            ]
+                        }
+                    ],
+                    "type": "logic_or",
+                    "operandText": "Or"
+                },
+                {
+                    "id": "c2dd8591-25a3-cbbb-be3e-00e46d37c050",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "a32ad85f-7ea4-99b2-60ac-6bcf0228c7ef",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "0,1",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.percentageDiscount"
+                        }
+                    ]
+                },
+                {
+                    "id": "e3a23cf6-4b9e-1083-5a76-12c2a604df38",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "132f4111-4dcf-5eab-b2cf-f50401f1e33a",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": {
+                                    "functionName": "TIMES_CHAR",
+                                    "parameters": [
+                                        "{productName.productPrice}",
+                                        "0.9"
+                                    ]
+                                },
+                                "type": "function",
+                                "stringValue": "{productName.productPrice} * 0.9"
+                            },
+                            "modelVariablePath": "productName.productPriceFinal"
+                        }
+                    ]
+                },
+                {
+                    "id": "3da2ce3e-0666-c4db-72f9-476431426df7",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "eee5ba40-e211-8c21-e613-390afe40bdcf",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "smartwatch",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGift"
+                        },
+                        {
+                            "id": "62f03eb4-f412-5aed-9e3c-2fee12972651",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "52345",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGiftCode"
+                        }
+                    ]
+                },
+                {
+                    "id": "1b516893-328a-5b77-8a2b-d110800c7a65",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "e6d5e5b7-0344-f997-64a1-4df137ef0b06",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "10% discount has been applied, smartwatch as a gift was assigned",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "Message"
+                        },
+                        {
+                            "id": "96fdf609-43a5-d61f-2931-1978513c63d9",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "{productName.productCode}",
+                                "type": "function",
+                                "stringValue": "{productName.productCode}"
+                            },
+                            "modelVariablePath": "productName.productCode"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "13d04dce-49d9-14c2-0f15-51050f887a22",
+            "operandText": "If",
+            "type": "if",
+            "nodes": [
+                {
+                    "id": "2e84d96f-b255-8c47-de30-d950c8a8dda7",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "between",
+                        "value": [
+                            {
+                                "date": "2022-10-19",
+                                "timezone": "+02:00"
+                            },
+                            {
+                                "date": "2022-10-31",
+                                "timezone": "+02:00"
+                            }
+                        ],
+                        "type": "date"
+                    },
+                    "modelVariablePath": "productName.discountValidity.endDate"
+                },
+                {
+                    "id": "99f91f31-871f-020c-a48a-c5fce31420bf",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "=",
+                        "value": "2",
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.branchCode"
+                },
+                {
+                    "id": "09144e22-00a6-79f6-c16b-be604764b4fc",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "betweenRightOpen",
+                        "value": [
+                            "200",
+                            "500"
+                        ],
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.productPrice"
+                },
+                {
+                    "id": "a39af934-1bc5-7219-3e06-9d327e2f86c0",
+                    "nodes": [
+                        {
+                            "id": "ef023d23-a458-8904-3cab-1b13bda081b5",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "da9d9ec9-049e-d252-3825-f17108f455ac",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": "betweenRightOpen",
+                                        "value": [
+                                            "100",
+                                            "300"
+                                        ],
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.stockQuantity"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "0706e91c-4e91-251d-35ef-760f21424f81",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "58e4e3db-5a0c-d4c6-a070-8856a9e501cf",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": "betweenRightOpen",
+                                        "value": [
+                                            "100",
+                                            "200"
+                                        ],
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.salesLastMonth"
+                                }
+                            ]
+                        }
+                    ],
+                    "type": "logic_or",
+                    "operandText": "Or"
+                },
+                {
+                    "id": "c2dd8591-25a3-cbbb-be3e-00e46d37c050",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "a32ad85f-7ea4-99b2-60ac-6bcf0228c7ef",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "0,15",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.percentageDiscount"
+                        }
+                    ]
+                },
+                {
+                    "id": "e3a23cf6-4b9e-1083-5a76-12c2a604df38",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "132f4111-4dcf-5eab-b2cf-f50401f1e33a",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": {
+                                    "functionName": "TIMES_CHAR",
+                                    "parameters": [
+                                        "{productName.productPrice}",
+                                        "0.85"
+                                    ]
+                                },
+                                "type": "function",
+                                "stringValue": "{productName.productPrice} * 0.85"
+                            },
+                            "modelVariablePath": "productName.productPriceFinal"
+                        }
+                    ]
+                },
+                {
+                    "id": "3da2ce3e-0666-c4db-72f9-476431426df7",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "eee5ba40-e211-8c21-e613-390afe40bdcf",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "smartwatch",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGift"
+                        },
+                        {
+                            "id": "62f03eb4-f412-5aed-9e3c-2fee12972651",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "52345",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGiftCode"
+                        }
+                    ]
+                },
+                {
+                    "id": "f46f7a71-119f-dd98-f399-823a5d7aa50e",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "e6d5e5b7-0344-f997-64a1-4df137ef0b06",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "15% discount has been applied, smartwatch as a gift was assigned",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "Message"
+                        },
+                        {
+                            "id": "96fdf609-43a5-d61f-2931-1978513c63d9",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "{productName.productCode}",
+                                "type": "function",
+                                "stringValue": "{productName.productCode}"
+                            },
+                            "modelVariablePath": "productName.productCode"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "427e1eda-e45f-5335-bccb-e31e0e6bee23",
+            "operandText": "If",
+            "type": "if",
+            "nodes": [
+                {
+                    "id": "2e84d96f-b255-8c47-de30-d950c8a8dda7",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "between",
+                        "value": [
+                            {
+                                "date": "2022-10-19",
+                                "timezone": "+02:00"
+                            },
+                            {
+                                "date": "2022-10-31",
+                                "timezone": "+02:00"
+                            }
+                        ],
+                        "type": "date"
+                    },
+                    "modelVariablePath": "productName.discountValidity.endDate"
+                },
+                {
+                    "id": "99f91f31-871f-020c-a48a-c5fce31420bf",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "=",
+                        "value": "2",
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.branchCode"
+                },
+                {
+                    "id": "09144e22-00a6-79f6-c16b-be604764b4fc",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "betweenRightOpen",
+                        "value": [
+                            "200",
+                            "500"
+                        ],
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.productPrice"
+                },
+                {
+                    "id": "a39af934-1bc5-7219-3e06-9d327e2f86c0",
+                    "nodes": [
+                        {
+                            "id": "ef023d23-a458-8904-3cab-1b13bda081b5",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "da9d9ec9-049e-d252-3825-f17108f455ac",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": ">=",
+                                        "value": "300",
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.stockQuantity"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "0706e91c-4e91-251d-35ef-760f21424f81",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "58e4e3db-5a0c-d4c6-a070-8856a9e501cf",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": ">=",
+                                        "value": "200",
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.salesLastMonth"
+                                }
+                            ]
+                        }
+                    ],
+                    "type": "logic_or",
+                    "operandText": "Or"
+                },
+                {
+                    "id": "c2dd8591-25a3-cbbb-be3e-00e46d37c050",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "a32ad85f-7ea4-99b2-60ac-6bcf0228c7ef",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "0,25",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.percentageDiscount"
+                        }
+                    ]
+                },
+                {
+                    "id": "e3a23cf6-4b9e-1083-5a76-12c2a604df38",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "132f4111-4dcf-5eab-b2cf-f50401f1e33a",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": {
+                                    "functionName": "TIMES_CHAR",
+                                    "parameters": [
+                                        "{productName.productPrice}",
+                                        "0.75"
+                                    ]
+                                },
+                                "type": "function",
+                                "stringValue": "{productName.productPrice} * 0.75"
+                            },
+                            "modelVariablePath": "productName.productPriceFinal"
+                        }
+                    ]
+                },
+                {
+                    "id": "3da2ce3e-0666-c4db-72f9-476431426df7",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "eee5ba40-e211-8c21-e613-390afe40bdcf",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "smartwatch",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGift"
+                        },
+                        {
+                            "id": "62f03eb4-f412-5aed-9e3c-2fee12972651",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "52345",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGiftCode"
+                        }
+                    ]
+                },
+                {
+                    "id": "6e236d74-4d1a-4873-dc4e-9efd5fb53388",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "e6d5e5b7-0344-f997-64a1-4df137ef0b06",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "25% discount has been applied, smartwatch as a gift was assigned",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "Message"
+                        },
+                        {
+                            "id": "96fdf609-43a5-d61f-2931-1978513c63d9",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "{productName.productCode}",
+                                "type": "function",
+                                "stringValue": "{productName.productCode}"
+                            },
+                            "modelVariablePath": "productName.productCode"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "b5fa78be-976c-da76-25b9-697bfe663555",
+            "operandText": "If",
+            "type": "if",
+            "nodes": [
+                {
+                    "id": "2e84d96f-b255-8c47-de30-d950c8a8dda7",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "between",
+                        "value": [
+                            {
+                                "date": "2022-10-19",
+                                "timezone": "+02:00"
+                            },
+                            {
+                                "date": "2022-10-31",
+                                "timezone": "+02:00"
+                            }
+                        ],
+                        "type": "date"
+                    },
+                    "modelVariablePath": "productName.discountValidity.endDate"
+                },
+                {
+                    "id": "99f91f31-871f-020c-a48a-c5fce31420bf",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "=",
+                        "value": "2",
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.branchCode"
+                },
+                {
+                    "id": "09144e22-00a6-79f6-c16b-be604764b4fc",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": ">=",
+                        "value": "500",
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.productPrice"
+                },
+                {
+                    "id": "a39af934-1bc5-7219-3e06-9d327e2f86c0",
+                    "nodes": [
+                        {
+                            "id": "ef023d23-a458-8904-3cab-1b13bda081b5",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "da9d9ec9-049e-d252-3825-f17108f455ac",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": "betweenRightOpen",
+                                        "value": [
+                                            "0",
+                                            "100"
+                                        ],
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.stockQuantity"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "0706e91c-4e91-251d-35ef-760f21424f81",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "58e4e3db-5a0c-d4c6-a070-8856a9e501cf",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": "betweenRightOpen",
+                                        "value": [
+                                            "0",
+                                            "100"
+                                        ],
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.salesLastMonth"
+                                }
+                            ]
+                        }
+                    ],
+                    "type": "logic_or",
+                    "operandText": "Or"
+                },
+                {
+                    "id": "c2dd8591-25a3-cbbb-be3e-00e46d37c050",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "a32ad85f-7ea4-99b2-60ac-6bcf0228c7ef",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "0,1",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.percentageDiscount"
+                        }
+                    ]
+                },
+                {
+                    "id": "e3a23cf6-4b9e-1083-5a76-12c2a604df38",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "132f4111-4dcf-5eab-b2cf-f50401f1e33a",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": {
+                                    "functionName": "TIMES_CHAR",
+                                    "parameters": [
+                                        "{productName.productPrice}",
+                                        "0.9"
+                                    ]
+                                },
+                                "type": "function",
+                                "stringValue": "{productName.productPrice} * 0.9"
+                            },
+                            "modelVariablePath": "productName.productPriceFinal"
+                        }
+                    ]
+                },
+                {
+                    "id": "3da2ce3e-0666-c4db-72f9-476431426df7",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "eee5ba40-e211-8c21-e613-390afe40bdcf",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "headphones",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGift"
+                        },
+                        {
+                            "id": "62f03eb4-f412-5aed-9e3c-2fee12972651",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "43543",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGiftCode"
+                        }
+                    ]
+                },
+                {
+                    "id": "5ef83ccd-2ba4-0067-4f75-fbc1883193a7",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "e6d5e5b7-0344-f997-64a1-4df137ef0b06",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "10% discount has been applied, headphones as a gift was assigned",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "Message"
+                        },
+                        {
+                            "id": "96fdf609-43a5-d61f-2931-1978513c63d9",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "{productName.productCode}",
+                                "type": "function",
+                                "stringValue": "{productName.productCode}"
+                            },
+                            "modelVariablePath": "productName.productCode"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "4dfecd8a-3ef1-56c0-941c-aad0266639d9",
+            "operandText": "If",
+            "type": "if",
+            "nodes": [
+                {
+                    "id": "2e84d96f-b255-8c47-de30-d950c8a8dda7",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "between",
+                        "value": [
+                            {
+                                "date": "2022-10-19",
+                                "timezone": "+02:00"
+                            },
+                            {
+                                "date": "2022-10-31",
+                                "timezone": "+02:00"
+                            }
+                        ],
+                        "type": "date"
+                    },
+                    "modelVariablePath": "productName.discountValidity.endDate"
+                },
+                {
+                    "id": "99f91f31-871f-020c-a48a-c5fce31420bf",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "=",
+                        "value": "2",
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.branchCode"
+                },
+                {
+                    "id": "09144e22-00a6-79f6-c16b-be604764b4fc",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": ">=",
+                        "value": "500",
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.productPrice"
+                },
+                {
+                    "id": "a39af934-1bc5-7219-3e06-9d327e2f86c0",
+                    "nodes": [
+                        {
+                            "id": "ef023d23-a458-8904-3cab-1b13bda081b5",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "da9d9ec9-049e-d252-3825-f17108f455ac",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": "betweenRightOpen",
+                                        "value": [
+                                            "100",
+                                            "300"
+                                        ],
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.stockQuantity"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "0706e91c-4e91-251d-35ef-760f21424f81",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "58e4e3db-5a0c-d4c6-a070-8856a9e501cf",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": "betweenRightOpen",
+                                        "value": [
+                                            "100",
+                                            "200"
+                                        ],
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.salesLastMonth"
+                                }
+                            ]
+                        }
+                    ],
+                    "type": "logic_or",
+                    "operandText": "Or"
+                },
+                {
+                    "id": "c2dd8591-25a3-cbbb-be3e-00e46d37c050",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "a32ad85f-7ea4-99b2-60ac-6bcf0228c7ef",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "0,15",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.percentageDiscount"
+                        }
+                    ]
+                },
+                {
+                    "id": "e3a23cf6-4b9e-1083-5a76-12c2a604df38",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "132f4111-4dcf-5eab-b2cf-f50401f1e33a",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": {
+                                    "functionName": "TIMES_CHAR",
+                                    "parameters": [
+                                        "{productName.productPrice}",
+                                        "0.85"
+                                    ]
+                                },
+                                "type": "function",
+                                "stringValue": "{productName.productPrice} * 0.85"
+                            },
+                            "modelVariablePath": "productName.productPriceFinal"
+                        }
+                    ]
+                },
+                {
+                    "id": "3da2ce3e-0666-c4db-72f9-476431426df7",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "eee5ba40-e211-8c21-e613-390afe40bdcf",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "headphones",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGift"
+                        },
+                        {
+                            "id": "62f03eb4-f412-5aed-9e3c-2fee12972651",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "43543",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGiftCode"
+                        }
+                    ]
+                },
+                {
+                    "id": "de9e387c-c0fe-4042-196e-c8f0a1a195bc",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "e6d5e5b7-0344-f997-64a1-4df137ef0b06",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "15% discount has been applied, headphones as a gift was assigned",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "Message"
+                        },
+                        {
+                            "id": "96fdf609-43a5-d61f-2931-1978513c63d9",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "{productName.productCode}",
+                                "type": "function",
+                                "stringValue": "{productName.productCode}"
+                            },
+                            "modelVariablePath": "productName.productCode"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "b1a82372-296a-5227-6af3-992628dcaaa2",
+            "operandText": "If",
+            "type": "if",
+            "nodes": [
+                {
+                    "id": "2e84d96f-b255-8c47-de30-d950c8a8dda7",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "between",
+                        "value": [
+                            {
+                                "date": "2022-10-19",
+                                "timezone": "+02:00"
+                            },
+                            {
+                                "date": "2022-10-31",
+                                "timezone": "+02:00"
+                            }
+                        ],
+                        "type": "date"
+                    },
+                    "modelVariablePath": "productName.discountValidity.endDate"
+                },
+                {
+                    "id": "99f91f31-871f-020c-a48a-c5fce31420bf",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "=",
+                        "value": "2",
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.branchCode"
+                },
+                {
+                    "id": "09144e22-00a6-79f6-c16b-be604764b4fc",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": ">=",
+                        "value": "500",
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.productPrice"
+                },
+                {
+                    "id": "a39af934-1bc5-7219-3e06-9d327e2f86c0",
+                    "nodes": [
+                        {
+                            "id": "ef023d23-a458-8904-3cab-1b13bda081b5",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "da9d9ec9-049e-d252-3825-f17108f455ac",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": ">=",
+                                        "value": "300",
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.stockQuantity"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "0706e91c-4e91-251d-35ef-760f21424f81",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "58e4e3db-5a0c-d4c6-a070-8856a9e501cf",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": ">=",
+                                        "value": "200",
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.salesLastMonth"
+                                }
+                            ]
+                        }
+                    ],
+                    "type": "logic_or",
+                    "operandText": "Or"
+                },
+                {
+                    "id": "c2dd8591-25a3-cbbb-be3e-00e46d37c050",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "a32ad85f-7ea4-99b2-60ac-6bcf0228c7ef",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "0,25",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.percentageDiscount"
+                        }
+                    ]
+                },
+                {
+                    "id": "e3a23cf6-4b9e-1083-5a76-12c2a604df38",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "132f4111-4dcf-5eab-b2cf-f50401f1e33a",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": {
+                                    "functionName": "TIMES_CHAR",
+                                    "parameters": [
+                                        "{productName.productPrice}",
+                                        "0.75"
+                                    ]
+                                },
+                                "type": "function",
+                                "stringValue": "{productName.productPrice} * 0.75"
+                            },
+                            "modelVariablePath": "productName.productPriceFinal"
+                        }
+                    ]
+                },
+                {
+                    "id": "3da2ce3e-0666-c4db-72f9-476431426df7",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "eee5ba40-e211-8c21-e613-390afe40bdcf",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "headphones",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGift"
+                        },
+                        {
+                            "id": "62f03eb4-f412-5aed-9e3c-2fee12972651",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "43543",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGiftCode"
+                        }
+                    ]
+                },
+                {
+                    "id": "ed69a69c-9d15-2408-9937-21a496de2ccf",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "e6d5e5b7-0344-f997-64a1-4df137ef0b06",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "25% discount has been applied, headphones as a gift was assigned",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "Message"
+                        },
+                        {
+                            "id": "96fdf609-43a5-d61f-2931-1978513c63d9",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "{productName.productCode}",
+                                "type": "function",
+                                "stringValue": "{productName.productCode}"
+                            },
+                            "modelVariablePath": "productName.productCode"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "2ebbc4e3-dd55-d147-3400-04f056d19f61",
+            "operandText": "If",
+            "type": "if",
+            "nodes": [
+                {
+                    "id": "2e84d96f-b255-8c47-de30-d950c8a8dda7",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "between",
+                        "value": [
+                            {
+                                "date": "2022-10-19",
+                                "timezone": "+02:00"
+                            },
+                            {
+                                "date": "2022-10-31",
+                                "timezone": "+02:00"
+                            }
+                        ],
+                        "type": "date"
+                    },
+                    "modelVariablePath": "productName.discountValidity.endDate"
+                },
+                {
+                    "id": "99f91f31-871f-020c-a48a-c5fce31420bf",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "=",
+                        "value": "3",
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.branchCode"
+                },
+                {
+                    "id": "09144e22-00a6-79f6-c16b-be604764b4fc",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "betweenRightOpen",
+                        "value": [
+                            "0",
+                            "500"
+                        ],
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.productPrice"
+                },
+                {
+                    "id": "a39af934-1bc5-7219-3e06-9d327e2f86c0",
+                    "nodes": [
+                        {
+                            "id": "ef023d23-a458-8904-3cab-1b13bda081b5",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "da9d9ec9-049e-d252-3825-f17108f455ac",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": "betweenRightOpen",
+                                        "value": [
+                                            "0",
+                                            "100"
+                                        ],
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.stockQuantity"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "0706e91c-4e91-251d-35ef-760f21424f81",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "58e4e3db-5a0c-d4c6-a070-8856a9e501cf",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": "betweenRightOpen",
+                                        "value": [
+                                            "0",
+                                            "100"
+                                        ],
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.salesLastMonth"
+                                }
+                            ]
+                        }
+                    ],
+                    "type": "logic_or",
+                    "operandText": "Or"
+                },
+                {
+                    "id": "c2dd8591-25a3-cbbb-be3e-00e46d37c050",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "a32ad85f-7ea4-99b2-60ac-6bcf0228c7ef",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "0,1",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.percentageDiscount"
+                        }
+                    ]
+                },
+                {
+                    "id": "e3a23cf6-4b9e-1083-5a76-12c2a604df38",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "132f4111-4dcf-5eab-b2cf-f50401f1e33a",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": {
+                                    "functionName": "TIMES_CHAR",
+                                    "parameters": [
+                                        "{productName.productPrice}",
+                                        "0.9"
+                                    ]
+                                },
+                                "type": "function",
+                                "stringValue": "{productName.productPrice} * 0.9"
+                            },
+                            "modelVariablePath": "productName.productPriceFinal"
+                        }
+                    ]
+                },
+                {
+                    "id": "3da2ce3e-0666-c4db-72f9-476431426df7",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "eee5ba40-e211-8c21-e613-390afe40bdcf",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "soundbar",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGift"
+                        },
+                        {
+                            "id": "62f03eb4-f412-5aed-9e3c-2fee12972651",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "81245",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGiftCode"
+                        }
+                    ]
+                },
+                {
+                    "id": "91f8a34b-c283-145e-831d-b193505bf5af",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "e6d5e5b7-0344-f997-64a1-4df137ef0b06",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "10% discount has been applied, soundbar as a gift was assigned",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "Message"
+                        },
+                        {
+                            "id": "96fdf609-43a5-d61f-2931-1978513c63d9",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "{productName.productCode}",
+                                "type": "function",
+                                "stringValue": "{productName.productCode}"
+                            },
+                            "modelVariablePath": "productName.productCode"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "42cae2b8-5bd0-df0b-5fa9-ed4625bb9565",
+            "operandText": "If",
+            "type": "if",
+            "nodes": [
+                {
+                    "id": "2e84d96f-b255-8c47-de30-d950c8a8dda7",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "between",
+                        "value": [
+                            {
+                                "date": "2022-10-19",
+                                "timezone": "+02:00"
+                            },
+                            {
+                                "date": "2022-10-31",
+                                "timezone": "+02:00"
+                            }
+                        ],
+                        "type": "date"
+                    },
+                    "modelVariablePath": "productName.discountValidity.endDate"
+                },
+                {
+                    "id": "99f91f31-871f-020c-a48a-c5fce31420bf",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "=",
+                        "value": "3",
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.branchCode"
+                },
+                {
+                    "id": "09144e22-00a6-79f6-c16b-be604764b4fc",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "betweenRightOpen",
+                        "value": [
+                            "500",
+                            "1000"
+                        ],
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.productPrice"
+                },
+                {
+                    "id": "a39af934-1bc5-7219-3e06-9d327e2f86c0",
+                    "nodes": [
+                        {
+                            "id": "ef023d23-a458-8904-3cab-1b13bda081b5",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "da9d9ec9-049e-d252-3825-f17108f455ac",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": "betweenRightOpen",
+                                        "value": [
+                                            "100",
+                                            "300"
+                                        ],
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.stockQuantity"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "0706e91c-4e91-251d-35ef-760f21424f81",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "58e4e3db-5a0c-d4c6-a070-8856a9e501cf",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": "betweenRightOpen",
+                                        "value": [
+                                            "100",
+                                            "200"
+                                        ],
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.salesLastMonth"
+                                }
+                            ]
+                        }
+                    ],
+                    "type": "logic_or",
+                    "operandText": "Or"
+                },
+                {
+                    "id": "c2dd8591-25a3-cbbb-be3e-00e46d37c050",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "a32ad85f-7ea4-99b2-60ac-6bcf0228c7ef",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "0,15",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.percentageDiscount"
+                        }
+                    ]
+                },
+                {
+                    "id": "e3a23cf6-4b9e-1083-5a76-12c2a604df38",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "132f4111-4dcf-5eab-b2cf-f50401f1e33a",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": {
+                                    "functionName": "TIMES_CHAR",
+                                    "parameters": [
+                                        "{productName.productPrice}",
+                                        "0.85"
+                                    ]
+                                },
+                                "type": "function",
+                                "stringValue": "{productName.productPrice} * 0.85"
+                            },
+                            "modelVariablePath": "productName.productPriceFinal"
+                        }
+                    ]
+                },
+                {
+                    "id": "3da2ce3e-0666-c4db-72f9-476431426df7",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "eee5ba40-e211-8c21-e613-390afe40bdcf",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "alexa_speaker",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGift"
+                        },
+                        {
+                            "id": "62f03eb4-f412-5aed-9e3c-2fee12972651",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "82346",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGiftCode"
+                        }
+                    ]
+                },
+                {
+                    "id": "985f42d4-b13f-5081-e818-f674a6462933",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "e6d5e5b7-0344-f997-64a1-4df137ef0b06",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "15% discount has been applied, alexa_speaker as a gift was assigned",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "Message"
+                        },
+                        {
+                            "id": "96fdf609-43a5-d61f-2931-1978513c63d9",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "{productName.productCode}",
+                                "type": "function",
+                                "stringValue": "{productName.productCode}"
+                            },
+                            "modelVariablePath": "productName.productCode"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "b9e13bfd-da22-a9ec-dcbb-349aed9eb0d2",
+            "operandText": "If",
+            "type": "if",
+            "nodes": [
+                {
+                    "id": "2e84d96f-b255-8c47-de30-d950c8a8dda7",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "between",
+                        "value": [
+                            {
+                                "date": "2022-10-19",
+                                "timezone": "+02:00"
+                            },
+                            {
+                                "date": "2022-10-31",
+                                "timezone": "+02:00"
+                            }
+                        ],
+                        "type": "date"
+                    },
+                    "modelVariablePath": "productName.discountValidity.endDate"
+                },
+                {
+                    "id": "99f91f31-871f-020c-a48a-c5fce31420bf",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": "=",
+                        "value": "3",
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.branchCode"
+                },
+                {
+                    "id": "09144e22-00a6-79f6-c16b-be604764b4fc",
+                    "type": "condition",
+                    "scalarCondition": {
+                        "operator": ">=",
+                        "value": "1000",
+                        "type": "general"
+                    },
+                    "modelVariablePath": "productName.productPrice"
+                },
+                {
+                    "id": "a39af934-1bc5-7219-3e06-9d327e2f86c0",
+                    "nodes": [
+                        {
+                            "id": "ef023d23-a458-8904-3cab-1b13bda081b5",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "da9d9ec9-049e-d252-3825-f17108f455ac",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": ">=",
+                                        "value": "300",
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.stockQuantity"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "0706e91c-4e91-251d-35ef-760f21424f81",
+                            "type": "logic_group",
+                            "nodes": [
+                                {
+                                    "id": "58e4e3db-5a0c-d4c6-a070-8856a9e501cf",
+                                    "type": "condition",
+                                    "scalarCondition": {
+                                        "operator": ">=",
+                                        "value": "200",
+                                        "type": "general"
+                                    },
+                                    "modelVariablePath": "productName.salesLastMonth"
+                                }
+                            ]
+                        }
+                    ],
+                    "type": "logic_or",
+                    "operandText": "Or"
+                },
+                {
+                    "id": "c2dd8591-25a3-cbbb-be3e-00e46d37c050",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "a32ad85f-7ea4-99b2-60ac-6bcf0228c7ef",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "0,25",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.percentageDiscount"
+                        }
+                    ]
+                },
+                {
+                    "id": "e3a23cf6-4b9e-1083-5a76-12c2a604df38",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "132f4111-4dcf-5eab-b2cf-f50401f1e33a",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": {
+                                    "functionName": "TIMES_CHAR",
+                                    "parameters": [
+                                        "{productName.productPrice}",
+                                        "0.75"
+                                    ]
+                                },
+                                "type": "function",
+                                "stringValue": "{productName.productPrice} * 0.75"
+                            },
+                            "modelVariablePath": "productName.productPriceFinal"
+                        }
+                    ]
+                },
+                {
+                    "id": "3da2ce3e-0666-c4db-72f9-476431426df7",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "eee5ba40-e211-8c21-e613-390afe40bdcf",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "appleTV",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGift"
+                        },
+                        {
+                            "id": "62f03eb4-f412-5aed-9e3c-2fee12972651",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "83475",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "productName.materialGiftCode"
+                        }
+                    ]
+                },
+                {
+                    "id": "f9106861-28f7-e78e-0cf1-f1f72399fa86",
+                    "operandText": "Then",
+                    "type": "then",
+                    "nodes": [
+                        {
+                            "id": "e6d5e5b7-0344-f997-64a1-4df137ef0b06",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "25% discount has been applied, appleTV as a gift was assigned",
+                                "type": "common"
+                            },
+                            "modelVariablePath": "Message"
+                        },
+                        {
+                            "id": "96fdf609-43a5-d61f-2931-1978513c63d9",
+                            "type": "result",
+                            "outputScalarValue": {
+                                "value": "{productName.productCode}",
+                                "type": "function",
+                                "stringValue": "{productName.productCode}"
+                            },
+                            "modelVariablePath": "productName.productCode"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "auditLog": {
+        "active": false,
+        "debug": {
+            "active": false
+        },
+        "ttl": 14
+    },
+    "createdIn": "2022-10-19T13:57:06.441Z",
+    "lastUpdate": "2022-10-20T19:40:47.668Z"
+}
