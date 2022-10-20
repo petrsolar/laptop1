@@ -1,0 +1,27 @@
+{
+  "productName": {
+    "discountValidity": {
+      "startDate": {
+        "date": "2022-10-07",
+        "timezone": "+00:00"
+      },
+      "endDate": {
+        "date": "2022-10-30",
+        "timezone": "+00:00"
+      }
+    },
+    "branchCode": 1,
+    "productCode": 11265,
+    "paymentMethod": [
+      "card",
+      " cash"
+    ],
+    "channelType": [
+      "retail",
+      " online"
+    ],
+    "productPrice": 600,
+    "stockQuantity": 200,
+    "salesLastMonth": 80
+  }
+}
